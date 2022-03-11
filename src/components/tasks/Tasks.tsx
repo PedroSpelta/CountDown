@@ -1,7 +1,9 @@
 import React from 'react';
+import { View } from 'react-native';
 
 const Tasks:React.FC = () => {
-  return <div></div>;
+  return <View>
+  </View>;
 }
 
 export default Tasks;
