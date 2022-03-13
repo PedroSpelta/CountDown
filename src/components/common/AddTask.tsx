@@ -19,7 +19,13 @@ const styles = StyleSheet.create({
     right: 0,
     margin: 10,
     borderRadius:100,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: palette.third,
+  },
+  image: {
+    height: 20,
+    width: 20,
   }
 });
 

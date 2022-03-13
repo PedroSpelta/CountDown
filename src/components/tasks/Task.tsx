@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { palette } from "../../themes/theme";
 const month = 2592000000;
 const day = 86400000;
