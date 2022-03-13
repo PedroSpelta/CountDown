@@ -4,6 +4,7 @@ import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AddTask from './src/components/newTask/AddTask';
 import Header from './src/components/header/Header';
 import Tasks from './src/components/tasks/Tasks';
+import NewTaskModal from './src/components/newTask/NewTaskModal';
 
 const App: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -13,7 +14,7 @@ const App: React.FC = () => {
       <Tasks />
       <StatusBar style="auto" />
       <AddTask setShowModal={setShowModal}/>
-      <Modal visible={showModal}></Modal>
+      <NewTaskModal visible={showModal} setShowModal={setShowModal} />
     </View>
   );
 }
