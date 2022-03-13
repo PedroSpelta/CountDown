@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Alert, Image, Pressable, StyleSheet, Text } from "react-native";
 import { palette } from "../../themes/theme";
 
-const AddTask: React.FC = () => {
+interface IAddTask {
+  setShowModal: Dispatch<SetStateAction<boolean>>
+}
+
+const AddTask: React.FC<IAddTask> = ({setShowModal}) => {
   return (
-    <Pressable style={styles.button} onPress={() => {Alert.alert('teste')}}>
+    <Pressable style={styles.button} onPress={() => {setShowModal(true)}}>
       <Image source={ require('../../images/plus.png')} style={styles.image}/>
     </Pressable>
   );

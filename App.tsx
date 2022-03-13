@@ -1,17 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import AddTask from './src/components/common/AddTask';
+import React, { useState } from 'react';
+import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
+import AddTask from './src/components/newTask/AddTask';
 import Header from './src/components/header/Header';
 import Tasks from './src/components/tasks/Tasks';
 
 const App: React.FC = () => {
+  const [showModal, setShowModal] = useState<boolean>(false)
   return (
     <View style={styles.container}>
       <Header />
       <Tasks />
       <StatusBar style="auto" />
-      <AddTask />
+      <AddTask setShowModal={setShowModal}/>
+      <Modal visible={showModal}></Modal>
     </View>
   );
 }
