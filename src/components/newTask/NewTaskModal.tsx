@@ -2,11 +2,10 @@ import React, { Dispatch, SetStateAction } from "react";
 import {
   Modal,
   StyleSheet,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
 } from "react-native";
+import NewTaskForm from "./NewTaskForm";
 
 interface INewTaskModal {
   visible: boolean;
@@ -27,11 +26,7 @@ const NewTaskModal: React.FC<INewTaskModal> = ({ visible, setShowModal }) => {
         activeOpacity={0}
         onPressOut={() => setShowModal(false)}
       >
-        <TouchableWithoutFeedback>
-          <View style={styles.container}>
-            <Text>testess</Text>
-          </View>
-        </TouchableWithoutFeedback>
+        <NewTaskForm />
       </TouchableOpacity>
       {/* <View >
       </View> */}
@@ -44,14 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor:'rgba(255,255,255,0.8)'
-  },
-  container: {
-    width: 100,
-    height: 100,
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "rgba(255,255,255,0.8)",
   },
 });
 
