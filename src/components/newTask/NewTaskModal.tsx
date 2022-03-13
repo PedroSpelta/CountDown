@@ -5,14 +5,14 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
+import { ICNewTaskModal } from "../../types/tasks";
 import NewTaskForm from "./NewTaskForm";
 
-interface INewTaskModal {
-  visible: boolean;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-}
-
-const NewTaskModal: React.FC<INewTaskModal> = ({ visible, setShowModal }) => {
+const NewTaskModal: React.FC<ICNewTaskModal> = ({
+  visible,
+  setShowModal,
+  setTasks,
+}) => {
   return (
     <Modal
       visible={visible}
@@ -26,10 +26,8 @@ const NewTaskModal: React.FC<INewTaskModal> = ({ visible, setShowModal }) => {
         activeOpacity={0}
         onPressOut={() => setShowModal(false)}
       >
-        <NewTaskForm />
+        <NewTaskForm setTasks={setTasks} />
       </TouchableOpacity>
-      {/* <View >
-      </View> */}
     </Modal>
   );
 };

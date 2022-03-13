@@ -1,27 +1,13 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { palette } from "../../themes/theme";
+import { ICTasks } from "../../types/tasks";
 import Task from "./Task";
 
-const defaultTasks = [
-  {
-    message: "Sei lá",
-    date: new Date("03/20/2022"),
-  },
-  {
-    message: "Teste",
-    date: new Date("03/15/2022"),
-  },
-  {
-    message: "Não sei",
-    date: new Date("03/12/2022"),
-  },
-];
-
-const Tasks: React.FC = () => {
+const Tasks: React.FC<ICTasks> = ({tasks}) => {
   return (
     <ScrollView style={styles.scroll}>
-      {defaultTasks.map((task, index) => {
+      {tasks.map((task, index) => {
         return <Task key={index} task={task} />;
       })}
     </ScrollView>

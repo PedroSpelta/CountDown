@@ -8,21 +8,18 @@ import {
   View,
 } from "react-native";
 import { palette } from "../../themes/theme";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import NewTaskDate from "./NewTaskDate";
+import { ICNewTaskForm } from "../../types/tasks";
 
-const NewTaskForm: React.FC = () => {
+const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [date, setDate] = useState<Date>(new Date());
   const [showDate, setShowDate] = useState<boolean>(false);
 
-  const handleDate = (evt, selectedDate) => {
-    if(evt.type === 'dismissed') return setShowDate(false);
-    console.log(evt.type, selectedDate);
-    setDate(selectedDate);
-    setShowDate(false);
+  const handleAddTask = () => {
+    setTasks((state) => [...state, { title, description, date }]);
   };
-  console.log(date)
 
   return (
     <TouchableWithoutFeedback>
@@ -39,15 +36,14 @@ const NewTaskForm: React.FC = () => {
           value={description}
           onChangeText={(evt) => setDescription(evt)}
         />
-        <Button title="date" onPress={() => setShowDate(true)}/>
-        <Text >{date.toLocaleDateString('pt-br')}</Text>
-        {showDate && (
-          <DateTimePicker
-            value={date}
-            minimumDate={new Date()}
-            onChange={handleDate}
-          />
-        )}
+        <Text style={styles.title}>Data</Text>
+        <NewTaskDate
+          date={date}
+          setDate={setDate}
+          showDate={showDate}
+          setShowDate={setShowDate}
+        />
+        <Button title="Novo evento" onPress={handleAddTask}/>
       </View>
     </TouchableWithoutFeedback>
   );

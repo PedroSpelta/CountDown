@@ -1,18 +1,12 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { palette } from "../../themes/theme";
+import { ICTask } from "../../types/tasks";
 const month = 2592000000;
 const day = 86400000;
 const hour = 3600000;
 const min = 60000;
 const sec = 1000;
-
-interface ITask {
-  task: {
-    message: string;
-    date: Date;
-  };
-}
 
 const getTime = (totalTime: number) => {
   const time = {
@@ -46,13 +40,13 @@ const getTime = (totalTime: number) => {
   return time;
 };
 
-const Task: React.FC<ITask> = ({ task }) => {
+const Task: React.FC<ICTask> = ({ task }) => {
   const timeUntil = task.date.getTime() - new Date().getTime();
   if (timeUntil < 0) return null;
   const time = getTime(timeUntil);
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{task.message}</Text>
+      <Text style={styles.text}>{task.title}</Text>
       <Text style={styles.text}>{time.day}</Text>
     </View>
   );
