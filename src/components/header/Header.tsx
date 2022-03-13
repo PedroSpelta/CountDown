@@ -14,11 +14,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: palette.first,
     width: "100%",
-    height: 30,
   },
   text: {
     color: "#fff",
     fontSize: 20,
+    marginTop: 30,
+    marginLeft:25,
     fontWeight: '700',
   },
 });
