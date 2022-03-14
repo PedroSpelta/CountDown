@@ -15,7 +15,7 @@ import { useTaskContext } from "../../context/TaskContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
-  const { selectedTask, taskModalType } = useTaskContext();
+  const { selectedTask, taskModalType, setShowTaskModal } = useTaskContext();
   const [title, setTitle] = useState<string>(selectedTask.title);
   const [description, setDescription] = useState<string>(
     selectedTask.description
@@ -38,6 +38,7 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
       AsyncStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     });
+    setShowTaskModal(false);
   };
 
   const handleAddTask = async () => {
@@ -51,14 +52,16 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
       AsyncStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     });
+    setShowTaskModal(false);
   };
 
   const handleDeleteTask = () => {
     setTasks((state) => {
-      const newState = state.filter((ts) => ts.date !== selectedTask.date)
+      const newState = state.filter((ts) => ts.date !== selectedTask.date);
       AsyncStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     });
+    setShowTaskModal(false);
   };
 
   const handleButtonPress = () => {

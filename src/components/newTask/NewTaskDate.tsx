@@ -18,10 +18,9 @@ const NewTaskDate: React.FC<ICNewTaskDate> = ({
 
   const handleDatePick = (evt: any, selectedDate: any) => {
     if (evt.type === "dismissed") return setShowDate(false);
-    console.log(evt.type, selectedDate);
+    setShowDate(false);
     setDate(selectedDate);
     setDays(getDaysUntil(selectedDate).toString());
-    return setShowDate(false);
   };
 
   const handleDateInput = (text: string) => {
