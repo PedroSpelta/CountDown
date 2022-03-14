@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Alert,
-  Button,
   Pressable,
   StyleSheet,
   Text,
@@ -13,6 +12,7 @@ import { palette } from "../../themes/theme";
 import NewTaskDate from "./NewTaskDate";
 import { ICNewTaskForm } from "../../types/tasks";
 import { useTaskContext } from "../../context/TaskContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
   const { selectedTask, taskModalType } = useTaskContext();
@@ -35,17 +35,30 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
           date,
         };
       });
+      AsyncStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     });
   };
 
-  const handleAddTask = () => {
+  const handleAddTask = async () => {
     if (title === "" || description === "")
       return Alert.alert(
         "Erro",
         "O título e a descrição não podem estar vazios"
       );
-    setTasks((state) => [...state, { title, description, date }]);
+    setTasks((state) => {
+      const newState = [...state, { title, description, date }];
+      AsyncStorage.setItem("tasks", JSON.stringify(newState));
+      return newState;
+    });
+  };
+
+  const handleDeleteTask = () => {
+    setTasks((state) => {
+      const newState = state.filter((ts) => ts.date !== selectedTask.date)
+      AsyncStorage.setItem("tasks", JSON.stringify(newState));
+      return newState;
+    });
   };
 
   const handleButtonPress = () => {
@@ -78,6 +91,13 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
         <Pressable style={styles.button} onPress={handleButtonPress}>
           <Text style={styles.buttonText}>{buttonText.toUpperCase()}</Text>
         </Pressable>
+        {taskModalType !== "add" && (
+          <Pressable style={styles.button} onPress={handleDeleteTask}>
+            <Text style={[styles.buttonText, styles.delete]}>
+              DELETAR EVENTO
+            </Text>
+          </Pressable>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -85,7 +105,7 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical:30,
+    paddingVertical: 30,
     maxWidth: "100%",
     width: "90%",
     borderRadius: 5,
@@ -94,17 +114,17 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
     backgroundColor: palette.third,
     fontSize: 19,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    width: '60%',
+    textAlign: "center",
+    textAlignVertical: "center",
+    width: "60%",
     height: 40,
-    borderRadius:100,
+    borderRadius: 100,
   },
   input: {
     padding: 5,
@@ -116,6 +136,9 @@ const styles = StyleSheet.create({
   },
   title: {
     marginHorizontal: 10,
+  },
+  delete: {
+    backgroundColor: "#ad4541",
   },
 });
 

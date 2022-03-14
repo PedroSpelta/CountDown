@@ -1,13 +1,14 @@
 import React from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTaskContext } from "../../context/TaskContext";
 import { getTime } from "../../lib/time";
 import { palette } from "../../themes/theme";
 import { ICTask } from "../../types/tasks";
 
 const Task: React.FC<ICTask> = ({ task }) => {
-  const { setSelectedTask, setShowTaskModal, setTaskModalType } = useTaskContext();
-  const timeUntil = task.date.getTime() - new Date().getTime();
+  const { setSelectedTask, setShowTaskModal, setTaskModalType } =
+    useTaskContext();
+  const timeUntil = new Date(task.date).getTime() - new Date().getTime();
   if (timeUntil < 0) return null;
   const time = getTime(timeUntil);
   return (
@@ -16,11 +17,16 @@ const Task: React.FC<ICTask> = ({ task }) => {
       onPress={() => {
         setSelectedTask(task);
         setShowTaskModal(true);
-        setTaskModalType('change');
+        setTaskModalType("change");
       }}
     >
-      <Text style={styles.text}>{task.title}</Text>
-      <Text style={styles.text}>{time.day}</Text>
+      <View>
+        <Text style={styles.title}>{task.title}</Text>
+        <Text style={styles.description}>{task.description}</Text>
+      </View>
+      <View style={styles.number}>
+      <Text style={styles.numberText}>{time.day + 1} D</Text>
+      </View>
     </Pressable>
   );
 };
@@ -36,9 +42,22 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 10,
   },
-  text: {
+  numberText: {
     color: "white",
+    fontSize: 26
   },
+  title: {
+    fontSize:20,
+    color:'white',
+    fontWeight: '700'
+  },
+  number: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  description: {
+
+  }
 });
 
 export default Task;
