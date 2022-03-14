@@ -39,8 +39,8 @@ export const getTime = (totalTime: number) => {
 };
 
 export const getDaysUntil = (objDate: Date) => {
-  const daysUntil = getTime(new Date().getTime() - objDate.getTime()).day;
-  return daysUntil;
+  const timeUntil = getTime(objDate.getTime() - new Date().getTime());
+  return timeUntil.day;
 };
 
 export const getFutureDate = (days: string) => {
@@ -48,4 +48,4 @@ export const getFutureDate = (days: string) => {
   const now = new Date().getTime();
   const future = now + daysNumber * day;
   return new Date(future);
-}
+};

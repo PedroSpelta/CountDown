@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -10,14 +11,22 @@ import {
 import { palette } from "../../themes/theme";
 import NewTaskDate from "./NewTaskDate";
 import { ICNewTaskForm } from "../../types/tasks";
+import { useTaskContext } from "../../context/TaskContext";
 
 const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [date, setDate] = useState<Date>(new Date());
+  const {selectedTask} = useTaskContext();
+  const [title, setTitle] = useState<string>(selectedTask.title);
+  const [description, setDescription] = useState<string>(selectedTask.description);
+  const [date, setDate] = useState<Date>(selectedTask.date);
   const [showDate, setShowDate] = useState<boolean>(false);
 
+  const handleChangeTask = () => {
+
+  }
+
   const handleAddTask = () => {
+    if (title === "" || description === "")
+      return Alert.alert("Erro", "O título e a descrição não podem estar vazios");
     setTasks((state) => [...state, { title, description, date }]);
   };
 
@@ -43,7 +52,7 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
           showDate={showDate}
           setShowDate={setShowDate}
         />
-        <Button title="Novo evento" onPress={handleAddTask}/>
+        <Button title="Novo evento" onPress={handleAddTask} />
       </View>
     </TouchableWithoutFeedback>
   );

@@ -1,30 +1,23 @@
-import React, { Dispatch, SetStateAction } from "react";
-import {
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native";
+import React from "react";
+import { Modal, StyleSheet, TouchableOpacity } from "react-native";
+import { useTaskContext } from "../../context/TaskContext";
 import { ICNewTaskModal } from "../../types/tasks";
 import NewTaskForm from "./NewTaskForm";
 
-const NewTaskModal: React.FC<ICNewTaskModal> = ({
-  visible,
-  setShowModal,
-  setTasks,
-}) => {
+const NewTaskModal: React.FC<ICNewTaskModal> = ({ setTasks }) => {
+  const { showTaskModal, setShowTaskModal } = useTaskContext();
   return (
     <Modal
-      visible={visible}
+      visible={showTaskModal}
       transparent
       onRequestClose={() => {
-        setShowModal(false);
+        setShowTaskModal(false);
       }}
     >
       <TouchableOpacity
         style={styles.modal}
         activeOpacity={0}
-        onPressOut={() => setShowModal(false)}
+        onPressOut={() => setShowTaskModal(false)}
       >
         <NewTaskForm setTasks={setTasks} />
       </TouchableOpacity>

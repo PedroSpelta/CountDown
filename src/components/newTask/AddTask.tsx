@@ -1,15 +1,20 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Alert, Image, Pressable, StyleSheet, Text } from "react-native";
+import React from "react";
+import { Image, Pressable, StyleSheet } from "react-native";
+import { defaultTask } from "../../constants/taskContants";
+import { useTaskContext } from "../../context/TaskContext";
 import { palette } from "../../themes/theme";
 
-interface IAddTask {
-  setShowModal: Dispatch<SetStateAction<boolean>>
-}
-
-const AddTask: React.FC<IAddTask> = ({setShowModal}) => {
+const AddTask: React.FC = () => {
+  const { setShowTaskModal, setSelectedTask } = useTaskContext();
   return (
-    <Pressable style={styles.button} onPress={() => {setShowModal(true)}}>
-      <Image source={ require('../../images/plus.png')} style={styles.image}/>
+    <Pressable
+      style={styles.button}
+      onPress={() => {
+        setShowTaskModal(true);
+        setSelectedTask(defaultTask);
+      }}
+    >
+      <Image source={require("../../images/plus.png")} style={styles.image} />
     </Pressable>
   );
 };
@@ -22,15 +27,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     margin: 10,
-    borderRadius:100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: palette.third,
   },
   image: {
     height: 20,
     width: 20,
-  }
+  },
 });
 
 export default AddTask;
