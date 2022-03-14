@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import { ICNewTaskDate } from "../../types/tasks";
@@ -29,21 +23,23 @@ const NewTaskDate: React.FC<ICNewTaskDate> = ({
     return setShowDate(false);
   };
 
-  const handleDateInput = (text:string) => {
+  const handleDateInput = (text: string) => {
     const number = Number(text).toString();
-    setDate(getFutureDate(number))
+    setDate(getFutureDate(number));
     setDays(number.replace(/[^0-9]/g, ""));
-  }
+  };
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.input}>{formattedDate}</Text> */}
-      <TextInput
-        keyboardType="number-pad"
-        style={styles.pressable}
-        value={days}
-        onChangeText={handleDateInput}
-      />
+      <View style={[styles.pressable, styles.pressableInput]}>
+        <TextInput
+          keyboardType="number-pad"
+          value={days}
+          onChangeText={handleDateInput}
+          style={styles.pressableText}
+        />
+        <Text style={styles.pressableText}>Dias</Text>
+      </View>
       <Pressable style={styles.pressable} onPress={() => setShowDate(true)}>
         <Text style={styles.input}>{formattedDate}</Text>
       </Pressable>
@@ -59,8 +55,15 @@ const NewTaskDate: React.FC<ICNewTaskDate> = ({
 };
 
 const styles = StyleSheet.create({
+  pressableInput: {
+    justifyContent: 'space-between'
+  },
+  pressableText: {
+    fontSize: 23
+  },
   pressable: {
     flex: 1,
+    flexDirection:'row',
     margin: 10,
     backgroundColor: palette.second,
     padding: 5,

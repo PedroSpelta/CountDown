@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Alert,
   Button,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -27,15 +28,15 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
   const handleChangeTask = () => {
     setTasks((state) => {
       const newState = state.map((ts) => {
-        if( ts.date !== selectedTask.date) return ts;
+        if (ts.date !== selectedTask.date) return ts;
         return {
           title,
           description,
-          date
-        }
-      })
+          date,
+        };
+      });
       return newState;
-    })
+    });
   };
 
   const handleAddTask = () => {
@@ -74,7 +75,9 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
           showDate={showDate}
           setShowDate={setShowDate}
         />
-        <Button title={buttonText} onPress={handleButtonPress} />
+        <Pressable style={styles.button} onPress={handleButtonPress}>
+          <Text style={styles.buttonText}>{buttonText.toUpperCase()}</Text>
+        </Pressable>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -82,11 +85,26 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical:30,
     maxWidth: "100%",
     width: "90%",
     borderRadius: 5,
     backgroundColor: palette.first,
     justifyContent: "center",
+  },
+  button: {
+    marginTop: 20,
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  buttonText: {
+    backgroundColor: palette.third,
+    fontSize: 19,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: '60%',
+    height: 40,
+    borderRadius:100,
   },
   input: {
     padding: 5,
