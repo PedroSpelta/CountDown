@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -15,6 +15,11 @@ const NewTaskDate: React.FC<ICNewTaskDate> = ({
 }) => {
   const [days, setDays] = useState<string>("0");
   const formattedDate = moment(date).locale("pt").format("DD/MM/YYYY");
+
+  useEffect(() => {
+    if (!date) return;
+    setDays((getDaysUntil(new Date(date)) + 1).toString());
+  }, [date]);
 
   const handleDatePick = (evt: any, selectedDate: any) => {
     if (evt.type === "dismissed") return setShowDate(false);
@@ -45,7 +50,7 @@ const NewTaskDate: React.FC<ICNewTaskDate> = ({
       </Pressable>
       {showDate && (
         <DateTimePicker
-          value={date}
+          value={ new Date(date)}
           minimumDate={new Date()}
           onChange={handleDatePick}
         />
@@ -56,14 +61,14 @@ const NewTaskDate: React.FC<ICNewTaskDate> = ({
 
 const styles = StyleSheet.create({
   pressableInput: {
-    justifyContent: 'space-between'
+    justifyContent: "space-between",
   },
   pressableText: {
-    fontSize: 23
+    fontSize: 23,
   },
   pressable: {
     flex: 1,
-    flexDirection:'row',
+    flexDirection: "row",
     margin: 10,
     backgroundColor: palette.second,
     padding: 5,

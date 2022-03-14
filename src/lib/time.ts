@@ -39,7 +39,7 @@ export const getTime = (totalTime: number) => {
 };
 
 export const getDaysUntil = (objDate: Date) => {
-  const timeUntil = getTime(objDate.getTime() - new Date().getTime());
+  const timeUntil = getTime(new Date(objDate).getTime() - new Date().getTime());
   return timeUntil.day;
 };
 
