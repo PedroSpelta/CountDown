@@ -42,4 +42,6 @@ export interface ITaskContext {
   setSelectedTask: Dispatch<SetStateAction<ITask>>;
   showTaskModal: boolean;
   setShowTaskModal: Dispatch<SetStateAction<boolean>>;
+  taskModalType: string;
+  setTaskModalType: Dispatch<SetStateAction<string>>;
 }

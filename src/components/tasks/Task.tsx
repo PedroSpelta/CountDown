@@ -6,7 +6,7 @@ import { palette } from "../../themes/theme";
 import { ICTask } from "../../types/tasks";
 
 const Task: React.FC<ICTask> = ({ task }) => {
-  const { setSelectedTask, setShowTaskModal } = useTaskContext();
+  const { setSelectedTask, setShowTaskModal, setTaskModalType } = useTaskContext();
   const timeUntil = task.date.getTime() - new Date().getTime();
   if (timeUntil < 0) return null;
   const time = getTime(timeUntil);
@@ -16,6 +16,7 @@ const Task: React.FC<ICTask> = ({ task }) => {
       onPress={() => {
         setSelectedTask(task);
         setShowTaskModal(true);
+        setTaskModalType('change');
       }}
     >
       <Text style={styles.text}>{task.title}</Text>

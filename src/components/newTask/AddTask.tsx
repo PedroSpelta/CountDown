@@ -5,13 +5,15 @@ import { useTaskContext } from "../../context/TaskContext";
 import { palette } from "../../themes/theme";
 
 const AddTask: React.FC = () => {
-  const { setShowTaskModal, setSelectedTask } = useTaskContext();
+  const { setShowTaskModal, setSelectedTask, setTaskModalType } =
+    useTaskContext();
   return (
     <Pressable
       style={styles.button}
       onPress={() => {
         setShowTaskModal(true);
         setSelectedTask(defaultTask);
+        setTaskModalType("add");
       }}
     >
       <Image source={require("../../images/plus.png")} style={styles.image} />

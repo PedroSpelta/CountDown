@@ -7,6 +7,7 @@ const TaskContext = createContext<ITaskContext>(null!);
 export const TaskContextWrapper: FC = ({ children }) => {
   const [selectedTask, setSelectedTask] = useState<ITask>(defaultTask);
   const [showTaskModal, setShowTaskModal] = useState<boolean>(false);
+  const [taskModalType, setTaskModalType] = useState<string>("add");
   return (
     <TaskContext.Provider
       value={{
@@ -14,6 +15,8 @@ export const TaskContextWrapper: FC = ({ children }) => {
         setSelectedTask,
         showTaskModal,
         setShowTaskModal,
+        taskModalType,
+        setTaskModalType,
       }}
     >
       {children}
