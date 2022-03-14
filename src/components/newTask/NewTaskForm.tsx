@@ -24,7 +24,19 @@ const NewTaskForm: React.FC<ICNewTaskForm> = ({ setTasks }) => {
 
   const buttonText = taskModalType === "add" ? "Novo evento" : "Mudar evento";
 
-  const handleChangeTask = () => {};
+  const handleChangeTask = () => {
+    setTasks((state) => {
+      const newState = state.map((ts) => {
+        if( ts.date !== selectedTask.date) return ts;
+        return {
+          title,
+          description,
+          date
+        }
+      })
+      return newState;
+    })
+  };
 
   const handleAddTask = () => {
     if (title === "" || description === "")
